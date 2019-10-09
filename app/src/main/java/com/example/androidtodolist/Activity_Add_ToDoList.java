@@ -39,10 +39,8 @@ public class Activity_Add_ToDoList extends AppCompatActivity {
                 addTask();
                 getandDisplayTask();
                 finish();
-
             }
         });
-
     }
 
     public void addTask() {
