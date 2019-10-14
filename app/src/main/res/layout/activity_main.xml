@@ -14,10 +14,18 @@
         android:drawableLeft="@android:drawable/ic_input_add"
         android:text="Add" />
 
+    <ProgressBar
+        android:id="@+id/progress_Bar"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview_id"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#E7FDDF" />
+
+
 
 </LinearLayout>

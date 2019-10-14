@@ -10,10 +10,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     RecyclerView recyclerviewUser;
+    ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 showAlertConfirm("Cofirm", "Would you like to add a new task ");
+
             }
         });
     }
@@ -45,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialogInterface, int i) {
                         Intent intent = new Intent(MainActivity.this, Activity_Add_ToDoList.class);
                         startActivity(intent);
+//                        progressBar.setVisibility(View.GONE);
                     }
                 })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
