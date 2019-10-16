@@ -44,7 +44,6 @@ public class Activity_Add_ToDoList extends AppCompatActivity {
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... voids) {
-
                 ToDo task = new ToDo();
                 task.task = editTask;
                 db.toDoDao().insert(task);

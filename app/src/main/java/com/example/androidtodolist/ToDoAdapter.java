@@ -25,6 +25,7 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ToDoViewHolder
 
     public interface OnItemClicked {
         void onClickItemDelete(int position);
+        void onClickItemUpdate(int position);
     }
 
     @NonNull
@@ -43,6 +44,14 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ToDoViewHolder
             public void onClick(View view) {
                 Log.d("1", "1  " + position);
                 onClick.onClickItemDelete(position);
+            }
+        });
+
+        holder.btnUpdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d("1", "1  " + position);
+                onClick.onClickItemUpdate(position);
             }
         });
     }
@@ -69,3 +78,20 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ToDoViewHolder
         this.onClick = onClick;
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

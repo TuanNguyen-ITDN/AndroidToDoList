@@ -1,5 +1,6 @@
 package com.example.androidtodolist;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -19,7 +20,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements ToDoAdapter.OnItemClicked {
     RecyclerView recyclerviewUser;
     ProgressBar progressBar;
     AppDatabase db;
@@ -46,7 +47,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 showAlertConfirm("Cofirm", "Would you like to add a new task ");
-
             }
         });
     }
@@ -55,7 +55,6 @@ public class MainActivity extends AppCompatActivity {
     public void onResume() {
         super.onResume();
         getandDisplayTask();
-
     }
 
     public void getandDisplayTask() {
@@ -69,10 +68,8 @@ public class MainActivity extends AppCompatActivity {
                     public void run() {
                         Log.d("array", Tasks.get(0).task.toString());
                         toDoAdapter = new ToDoAdapter(this, Tasks);
-                        //toDoAdapter.setOnClick(MainActivity.this);
+                        toDoAdapter.setOnClick(MainActivity.this);
                         recyclerviewUser.setAdapter(toDoAdapter);
-
-
                     }
                 });
                 return null;
@@ -80,21 +77,30 @@ public class MainActivity extends AppCompatActivity {
         }.execute();
     }
 
-
+    @Override
     public void onClickItemDelete(final int position) {
-        Log.d("2", "2  " + position);
+        Log.i("TAG", "clicked at " + position);
 
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... voids) {
                 db.toDoDao().delete(Tasks.get(position));
-                Tasks.remove(position);
-
+                Log.i("TAG", "delete success");
                 return null;
             }
+
+            @Override
+            protected void onPostExecute(Void aVoid) {
+                super.onPostExecute(aVoid);
+                toDoAdapter.Tasks.remove(position);
+                toDoAdapter.notifyDataSetChanged();
+            }
         }.execute();
-        getandDisplayTask();
-        Toast.makeText(getApplicationContext(), "Delete task successfully", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onClickItemUpdate(int position) {
+
     }
 
     private void showAlertConfirm(String title, String message) {
@@ -118,3 +124,9 @@ public class MainActivity extends AppCompatActivity {
                 .show();
     }
 }
+
+
+
+
+
+
