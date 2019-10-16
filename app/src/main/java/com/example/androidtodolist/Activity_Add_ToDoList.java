@@ -16,7 +16,7 @@ import java.util.List;
 public class Activity_Add_ToDoList extends AppCompatActivity {
     AppDatabase db;
     ToDoAdapter toDoAdapter;
-    String editTask;
+    String Task;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,17 +39,27 @@ public class Activity_Add_ToDoList extends AppCompatActivity {
 
     public void addTask() {
         final EditText edit_text_Task = (EditText) findViewById(R.id.edit_text_Task);
-        editTask = edit_text_Task.getText().toString();
+        Task = edit_text_Task.getText().toString();
+
+        if (Task.isEmpty()) {
+            Toast.makeText(this, "Task must not null", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... voids) {
                 ToDo task = new ToDo();
-                task.task = editTask;
+                task.task = Task;
                 db.toDoDao().insert(task);
                 return null;
             }
+
+            @Override
+            protected void onPostExecute(Void aVoid) {
+                super.onPostExecute(aVoid);
+                Toast.makeText(Activity_Add_ToDoList.this, Task + " has been added successfully", Toast.LENGTH_SHORT).show();
+            }
         }.execute();
-        Toast.makeText(getApplicationContext(), "Add task successfully", Toast.LENGTH_SHORT).show();
     }
 }

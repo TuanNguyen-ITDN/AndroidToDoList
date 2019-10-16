@@ -62,7 +62,6 @@ public class MainActivity extends AppCompatActivity implements ToDoAdapter.OnIte
             @Override
             protected List<ToDo> doInBackground(Void... voids) {
                 Tasks = db.toDoDao().getAll();
-
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -74,6 +73,14 @@ public class MainActivity extends AppCompatActivity implements ToDoAdapter.OnIte
                 return null;
             }
         }.execute();
+    }
+
+    @Override
+    public void onClickItemUpdate(ToDo todo){
+        Intent intent = new Intent(MainActivity.this, UpdateActivity.class);
+        intent.putExtra("id", todo.getId());
+        intent.putExtra("title", todo.getTask());
+        startActivity(intent);
     }
 
     @Override
@@ -98,23 +105,6 @@ public class MainActivity extends AppCompatActivity implements ToDoAdapter.OnIte
     }
 
 
-    @Override
-    public void onClickItemUpdate(final int position, final String task) {
-        db = Room.databaseBuilder(getApplicationContext(),
-                AppDatabase.class, "database-name").build();
-
-        new AsyncTask<Void, Void, Void>() {
-            @Override
-            protected Void doInBackground(Void... voids) {
-                ToDo task = new ToDo();
-                //task.task = editTask;
-                db.toDoDao().updateOne(task);
-                return null;
-            }
-        }.execute();
-    }
-
-
     private void showAlertConfirm(String title, String message) {
         new AlertDialog.Builder(this)
                 .setTitle(title)
@@ -122,9 +112,7 @@ public class MainActivity extends AppCompatActivity implements ToDoAdapter.OnIte
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        Intent intent = new Intent(MainActivity.this, Activity_Add_ToDoList.class);
-                        startActivity(intent);
-//                        progressBar.setVisibility(View.GONE);
+                        openAddTodoScreen();
                     }
                 })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -134,6 +122,11 @@ public class MainActivity extends AppCompatActivity implements ToDoAdapter.OnIte
                     }
                 })
                 .show();
+    }
+
+    private void openAddTodoScreen() {
+        Intent intent = new Intent(MainActivity.this, Activity_Add_ToDoList.class);
+        startActivity(intent);
     }
 }
 
