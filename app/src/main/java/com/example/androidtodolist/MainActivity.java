@@ -98,6 +98,23 @@ public class MainActivity extends AppCompatActivity implements ToDoAdapter.OnIte
     }
 
 
+    @Override
+    public void onClickItemUpdate(final int position, final String task) {
+        db = Room.databaseBuilder(getApplicationContext(),
+                AppDatabase.class, "database-name").build();
+
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... voids) {
+                ToDo task = new ToDo();
+                //task.task = editTask;
+                db.toDoDao().updateOne(task);
+                return null;
+            }
+        }.execute();
+    }
+
+
     private void showAlertConfirm(String title, String message) {
         new AlertDialog.Builder(this)
                 .setTitle(title)

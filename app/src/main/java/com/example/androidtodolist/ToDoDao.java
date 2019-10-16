@@ -20,6 +20,6 @@ public interface ToDoDao {
     void delete(ToDo toDo);
 
     @Update
-    void update(ToDo toDo);
+    void updateOne(ToDo toDo);
 
 }
