@@ -1,8 +1,10 @@
 package com.example.androidtodolist;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -14,7 +16,16 @@ import java.util.List;
 
 public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ToDoViewHolder> {
 
+    public List<ToDo> Tasks;
+    private OnItemClicked onClick;
 
+    public ToDoAdapter(Runnable mainActivity, List<ToDo> tasks) {
+        Tasks = tasks;
+    }
+
+    public interface OnItemClicked {
+        void onClickItemDelete(int position);
+    }
 
     @NonNull
     @Override
@@ -24,24 +35,37 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ToDoViewHolder
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ToDoViewHolder holder, int position) {
-        holder.tvTask.setText("Nga");
+    public void onBindViewHolder(@NonNull ToDoViewHolder holder, final int position) {
+        holder.tvTask.setText(Tasks.get(position).getTask());
+
+        holder.btnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d("1", "1  " + position);
+                onClick.onClickItemDelete(position);
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
-        return 10;
+        return Tasks.size();
     }
 
     class ToDoViewHolder extends RecyclerView.ViewHolder {
-
         TextView tvTask;
-
+        Button btnUpdate, btnDelete;
 
         public ToDoViewHolder(@NonNull View itemView) {
             super(itemView);
             tvTask = itemView.findViewById(R.id.tvTask);
+            btnUpdate = itemView.findViewById(R.id.updateTask);
+            btnDelete = itemView.findViewById(R.id.deleteTask);
 
         }
+    }
+
+    public void setOnClick(OnItemClicked onClick) {
+        this.onClick = onClick;
     }
 }

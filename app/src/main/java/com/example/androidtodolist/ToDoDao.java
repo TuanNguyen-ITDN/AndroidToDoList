@@ -18,4 +18,7 @@ public interface ToDoDao {
     @Delete
     void delete(ToDo toDo);
 
+    @Query("DELETE FROM ToDo")
+    void deleteOne();
+
 }
