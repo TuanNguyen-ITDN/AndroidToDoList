@@ -66,7 +66,6 @@ public class MainActivity extends AppCompatActivity implements ToDoAdapter.OnIte
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Log.d("array", Tasks.get(0).task.toString());
                         toDoAdapter = new ToDoAdapter(this, Tasks);
                         toDoAdapter.setOnClick(MainActivity.this);
                         recyclerviewUser.setAdapter(toDoAdapter);
@@ -98,10 +97,6 @@ public class MainActivity extends AppCompatActivity implements ToDoAdapter.OnIte
         }.execute();
     }
 
-    @Override
-    public void onClickItemUpdate(int position) {
-
-    }
 
     private void showAlertConfirm(String title, String message) {
         new AlertDialog.Builder(this)
