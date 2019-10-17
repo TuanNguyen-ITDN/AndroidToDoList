@@ -19,14 +19,17 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ToDoViewHolder
     public List<ToDo> Tasks;
     private OnItemClicked onClick;
 
-    public ToDoAdapter(Runnable mainActivity, List<ToDo> tasks) {
-        Tasks = tasks;
-    }
-
     public interface OnItemClicked {
         void onClickItemDelete(int position);
-
         void onClickItemUpdate(int position);
+    }
+
+    public void setOnClick(OnItemClicked onClick) {
+        this.onClick = onClick;
+    }
+
+    public ToDoAdapter(Runnable mainActivity, List<ToDo> tasks) {
+        Tasks = tasks;
     }
 
     @NonNull
@@ -75,9 +78,7 @@ public class ToDoAdapter extends RecyclerView.Adapter<ToDoAdapter.ToDoViewHolder
         }
     }
 
-    public void setOnClick(OnItemClicked onClick) {
-        this.onClick = onClick;
-    }
+
 }
 
 

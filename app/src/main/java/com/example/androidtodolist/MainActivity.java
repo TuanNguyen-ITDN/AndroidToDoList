@@ -22,7 +22,6 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements ToDoAdapter.OnItemClicked {
     RecyclerView recyclerviewUser;
-    ProgressBar progressBar;
     AppDatabase db;
     ToDoAdapter toDoAdapter;
     public static List<ToDo> Tasks = new ArrayList<>();
@@ -46,7 +45,6 @@ public class MainActivity extends AppCompatActivity implements ToDoAdapter.OnIte
                 showAlertConfirm("Cofirm", "Would you like to add a new task ");
             }
         });
-
     }
 
     @Override
