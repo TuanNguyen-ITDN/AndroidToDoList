@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity implements ToDoAdapter.OnIte
     RecyclerView recyclerviewUser;
     AppDatabase db;
     ToDoAdapter toDoAdapter;
-    public static List<ToDo> Tasks = new ArrayList<>();
+    public static List<ToDo> Tasks;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
