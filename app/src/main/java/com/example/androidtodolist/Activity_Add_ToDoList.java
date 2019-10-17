@@ -50,7 +50,7 @@ public class Activity_Add_ToDoList extends AppCompatActivity {
             @Override
             protected Void doInBackground(Void... voids) {
                 ToDo task = new ToDo();
-                task.task = Task;
+                task.setTask(Task);
                 db.toDoDao().insert(task);
                 return null;
             }

@@ -38,9 +38,6 @@ public class MainActivity extends AppCompatActivity implements ToDoAdapter.OnIte
         recyclerviewUser = findViewById(R.id.recyclerview_id);
         recyclerviewUser.setLayoutManager(new LinearLayoutManager((this)));
 
-//        final ToDoAdapter todoAdapter = new ToDoAdapter();
-//        recyclerviewUser.setAdapter(todoAdapter);
-
         final Button btn_Add = (Button) findViewById(R.id.btn_ADD);
 
         btn_Add.setOnClickListener(new View.OnClickListener() {
@@ -49,6 +46,7 @@ public class MainActivity extends AppCompatActivity implements ToDoAdapter.OnIte
                 showAlertConfirm("Cofirm", "Would you like to add a new task ");
             }
         });
+
     }
 
     @Override
@@ -75,12 +73,16 @@ public class MainActivity extends AppCompatActivity implements ToDoAdapter.OnIte
         }.execute();
     }
 
-    @Override
-    public void onClickItemUpdate(ToDo todo){
+    private void openUpdateTodoScreen(ToDo todo) {
         Intent intent = new Intent(MainActivity.this, UpdateActivity.class);
         intent.putExtra("id", todo.getId());
-        intent.putExtra("title", todo.getTask());
+        intent.putExtra("task", todo.getTask());
         startActivity(intent);
+    }
+
+    @Override
+    public void onClickItemUpdate(int position) {
+        openUpdateTodoScreen(Tasks.get(position));
     }
 
     @Override
